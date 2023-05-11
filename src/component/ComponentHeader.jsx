@@ -155,20 +155,11 @@ function Category() {
   return (
     <div className="category_header">
       <div className="category_item">Laptop</div>
-      <div
-        className="category_item"
-        style={{ flexGrow: 1, textAlign: "center" }}
-      >
-        Smart phone
-      </div>
-      <div
-        className="category_item"
-        style={{ flexGrow: 1, textAlign: "çenter" }}
-      >
-        Mĩ phẩm
-      </div>
+      <div className="category_item">Smart phone</div>
+      <div className="category_item">Mĩ phẩm</div>
       <div className="category_item">Đồ trang chí</div>
     </div>
   )
 }
+
 export { TypographyHeader, LinkHeader, HoverAccount, Category }

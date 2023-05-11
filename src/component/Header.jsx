@@ -26,6 +26,7 @@ export default function Header() {
         position: "fixed",
         width: "100%",
         top: "0",
+        zIndex: 1000,
         right: "0",
       }}
     >

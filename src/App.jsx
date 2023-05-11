@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
 import { useState } from "react"
 import Header from "./component/Header"
+import { MainHomePage } from "./component/ComponentHomePage"
 //  import cart from "./assets/image/cart.svg"
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
   return (
     <>
       <Header />
+      <MainHomePage />
       <div style={{ marginTop: "200px" }}>
         Has {productsRender?.length} products
       </div>
