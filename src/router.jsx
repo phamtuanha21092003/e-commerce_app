@@ -2,7 +2,9 @@ import { createBrowserRouter } from "react-router-dom"
 import App from "./App"
 import SignIn from "./component/SignIn"
 import SignUp from "./component/SignUp"
-import Test from "./Test"
+import DetailProduct, {
+  loader as loaderDetailProduct,
+} from "./component/DetailProduct"
 
 export const router = createBrowserRouter([
   {
@@ -17,5 +19,9 @@ export const router = createBrowserRouter([
     path: "/signup",
     element: <SignUp />,
   },
-  { path: "/test", element: <Test /> },
+  {
+    path: "/detail/:idProduct",
+    element: <DetailProduct />,
+    loader: loaderDetailProduct,
+  },
 ])

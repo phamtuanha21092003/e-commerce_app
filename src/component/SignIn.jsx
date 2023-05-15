@@ -14,8 +14,7 @@ import Typography from "@mui/material/Typography"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
 import backgroundImage from "../assets/image/R.jfif"
 import { useAccount } from "../hooks/useAccount"
-import { useNavigate } from "react-router-dom"
-import { Link as RouterLink } from "react-router-dom"
+import { Link as RouterLink, useNavigate } from "react-router-dom"
 
 function Copyright(props) {
   return (

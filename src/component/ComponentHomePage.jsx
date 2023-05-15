@@ -7,6 +7,7 @@ import new1 from "../assets/image/slide_show/new1.png"
 import new2 from "../assets/image/slide_show/new2.jfif"
 
 import SlideShow from "./Slidehow"
+import { Product } from "./Product"
 
 const slides = [
   { image: slide1 },
@@ -16,7 +17,7 @@ const slides = [
   { image: slide5 },
 ]
 
-function Main() {
+function Main({ products }) {
   return (
     <main className="main">
       <div className="container">
@@ -30,7 +31,20 @@ function Main() {
           </div>
         </div>
       </div>
+      <Products products={products} />
     </main>
+  )
+}
+
+function Products({ products }) {
+  return (
+    <section className="products" style={{ marginTop: "20px" }}>
+      {products.map((product, index) => (
+        <div className="product" key={`product_${index}`}>
+          <Product product={product} />
+        </div>
+      ))}
+    </section>
   )
 }
 

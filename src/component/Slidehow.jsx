@@ -23,7 +23,7 @@ export default function SlideShow({ slides, interval = 3000 }) {
         (slide, index) =>
           index === currentSlide && (
             <div key={`idex-${index}`} className="slide">
-              <img src={slide.image} alt="lỗi ảnh" />
+              <div style={{ backgroundImage: `url('${slide.image}')` }}></div>
             </div>
           )
       )}
