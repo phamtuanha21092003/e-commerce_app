@@ -40,7 +40,6 @@ export default function SignIn() {
   const navigate = useNavigate()
   React.useEffect(() => {
     if (localStorage.getItem("email")) {
-      console.log("account logged in")
       navigate("/")
     }
   }, [])

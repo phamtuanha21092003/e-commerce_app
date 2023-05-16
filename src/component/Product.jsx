@@ -4,13 +4,10 @@ export function Product({ product }) {
   const {
     id,
     title,
-    description,
     images: [image],
     price,
     discountPercentage,
   } = product
-  console.log(id, title, description, image, price, discountPercentage)
-  console.log("product", product)
   return (
     <NavLink to={`/detail/${id}`}>
       <div className="product_discount">

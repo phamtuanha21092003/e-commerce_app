@@ -96,14 +96,16 @@ export default function DetailProduct() {
           </div>
         </div>
         <div className="container_checkout">
-          <button className="cart">
+          <button disabled={quantity <= 0} className="cart">
             <i
               className="fa-solid fa-cart-plus"
               style={{ color: "#ee4d2d" }}
             ></i>
             <p>Thêm vào giỏ hàng</p>
           </button>
-          <button className="checkout">Mua ngay</button>
+          <button disabled={quantity <= 0} className="checkout">
+            Mua ngay
+          </button>
         </div>
       </div>
       <FsLightbox toggler={toggler} sources={images} slide={currentImage + 1} />
@@ -114,9 +116,7 @@ export default function DetailProduct() {
 async function loader({ params }) {
   const { idProduct } = params
   const product = await axiosInstance.get(`products/${idProduct}`)
-  const {
-    data: { title, price, description, discountPercentage, id, images },
-  } = product
+  const { title, price, description, discountPercentage, id, images } = product
   return { title, price, description, discountPercentage, id, images }
 }
 

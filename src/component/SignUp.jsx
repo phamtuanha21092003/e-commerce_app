@@ -35,7 +35,7 @@ function Copyright(props) {
 const theme = createTheme()
 
 export default function SignUp() {
-  const { signUp: signUpAccount, accounts } = useAccount((state) => ({
+  const { signUp: signUpAccount } = useAccount((state) => ({
     ...state,
   }))
   const handleSubmit = (event) => {
@@ -43,10 +43,8 @@ export default function SignUp() {
     const data = new FormData(event.currentTarget)
     const email = data.get("email")
     const password = data.get("password")
-    console.log({ email, password })
     return signUpAccount({ email, password })
   }
-  console.log(accounts)
   return (
     <>
       <ThemeProvider theme={theme}>

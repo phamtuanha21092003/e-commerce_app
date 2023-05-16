@@ -8,10 +8,8 @@ function App() {
   const [products, setProducts] = useState([])
   const { status, fetchStatus } = useQuery({
     queryKey: ["key"],
-    queryFn: () =>
-      axiosInstance.get("/products").then((response) => response.data),
+    queryFn: () => axiosInstance.get("/products").then((response) => response),
     onSuccess: ({ products: listProduct }) => {
-      console.log(listProduct)
       setProducts(listProduct)
     },
     onError: (error) => {

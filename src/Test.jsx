@@ -5,7 +5,6 @@ export default function Test() {
   const { accounts, signUp } = useAccount((state) => state)
   const refEmail = useRef()
   const refPassword = useRef()
-  console.log(accounts)
   return (
     <div>
       {Object.keys(accounts).map((item) => (
