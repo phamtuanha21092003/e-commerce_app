@@ -10,7 +10,6 @@ import {
 import { useState } from "react"
 import shopee from "../assets/image/shopee.png"
 import { NavLink } from "react-router-dom"
-// import cart from "../assets/image/cart.jfif"
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 
 export default function Header() {
@@ -61,7 +60,7 @@ export default function Header() {
           )}
         </Toolbar>
         <nav className="navigation">
-          <NavLink className="index_nav" to="/node_modules">
+          <NavLink className="index_nav" to="">
             <img src={shopee} alt="" />
           </NavLink>
           <div className="header_grow">

@@ -1,4 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit"
-import estimateReducer from "../features/estimate/estimateSlide"
+import accountSlice from "../features/account/accountSlice"
 
-export default configureStore({ reducer: { estimate: estimateReducer } })
+export default configureStore({ reducer: { accounts: accountSlice } })

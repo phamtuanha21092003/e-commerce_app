@@ -1,4 +1,4 @@
-import * as React from "react"
+import { useEffect, useState } from "react"
 import Avatar from "@mui/material/Avatar"
 import Button from "@mui/material/Button"
 import CssBaseline from "@mui/material/CssBaseline"
@@ -13,8 +13,9 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined"
 import Typography from "@mui/material/Typography"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
 import backgroundImage from "../assets/image/R.jfif"
-import { useAccount } from "../hooks/useAccount"
 import { Link as RouterLink, useNavigate } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux"
+import { selectAccountByEmail, signIn } from "../features/account/accountSlice"
 
 function Copyright(props) {
   return (
@@ -38,21 +39,21 @@ const theme = createTheme()
 
 export default function SignIn() {
   const navigate = useNavigate()
-  React.useEffect(() => {
-    if (localStorage.getItem("email")) {
+  const dispatch = useDispatch()
+  const [email, setEmail] = useState(localStorage.getItem("email") || "")
+  const account = useSelector((state) => selectAccountByEmail(state, email))
+  useEffect(() => {
+    if (account) {
       navigate("/")
     }
-  }, [])
-  const account = useAccount((state) => state.accounts)
+  }, [email])
   const handleSubmit = (event) => {
     event.preventDefault()
     const data = new FormData(event.currentTarget)
     const email = data.get("email")
     const password = data.get("password")
-    if (account[email] === password) {
-      localStorage.setItem("email", email)
-      navigate("/")
-    }
+    dispatch(signIn({ email, password }))
+    setEmail(localStorage.getItem("email") || "")
   }
   return (
     <ThemeProvider theme={theme}>

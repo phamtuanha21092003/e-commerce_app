@@ -5,11 +5,25 @@ import SignUp from "./component/SignUp"
 import DetailProduct, {
   loader as loaderDetailProduct,
 } from "./component/DetailProduct"
+import { MainHomePage } from "./component/ComponentHomePage"
+import { Cart } from "./component/Cart"
 
 export const router = createBrowserRouter([
   {
     path: "",
     element: <App />,
+    children: [
+      { path: "", element: <MainHomePage /> },
+      {
+        path: "/detail/:idProduct",
+        element: <DetailProduct />,
+        loader: loaderDetailProduct,
+      },
+      {
+        path: "/cart",
+        element: <Cart />,
+      },
+    ],
   },
   {
     path: "/signin",
@@ -18,10 +32,5 @@ export const router = createBrowserRouter([
   {
     path: "/signup",
     element: <SignUp />,
-  },
-  {
-    path: "/detail/:idProduct",
-    element: <DetailProduct />,
-    loader: loaderDetailProduct,
   },
 ])

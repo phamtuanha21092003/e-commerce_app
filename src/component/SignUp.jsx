@@ -11,8 +11,9 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined"
 import Typography from "@mui/material/Typography"
 import Container from "@mui/material/Container"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
-import { useAccount } from "../hooks/useAccount"
 import { Link as RouterLink } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux"
+import { selectAccount, signUp } from "../features/account/accountSlice"
 
 function Copyright(props) {
   return (
@@ -35,15 +36,17 @@ function Copyright(props) {
 const theme = createTheme()
 
 export default function SignUp() {
-  const { signUp: signUpAccount } = useAccount((state) => ({
-    ...state,
-  }))
+  const account = useSelector(selectAccount)
+  const dispatch = useDispatch()
+  console.log(account)
   const handleSubmit = (event) => {
     event.preventDefault()
     const data = new FormData(event.currentTarget)
     const email = data.get("email")
     const password = data.get("password")
-    return signUpAccount({ email, password })
+    const firstName = data.get("firstName")
+    const lastName = data.get("lastName")
+    dispatch(signUp({ email, password, lastName, firstName }))
   }
   return (
     <>

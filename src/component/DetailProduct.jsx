@@ -1,20 +1,36 @@
 import { useState } from "react"
-import { useLoaderData } from "react-router-dom"
+import { useLoaderData, useNavigate } from "react-router-dom"
 import FsLightbox from "fslightbox-react"
 import axiosInstance from "../axios"
 import { Rating } from "@mui/material"
 import StarIcon from "@mui/icons-material/Star"
 import StarBorderIcon from "@mui/icons-material/StarBorder"
+import { useDispatch, useSelector } from "react-redux"
+import { selectAccountByEmail } from "../features/account/accountSlice"
+import { addToCart as addToCartAction } from "../features/account/accountSlice"
 
 export default function DetailProduct() {
   const product = useLoaderData()
   const [toggler, setToggler] = useState(false)
   const [currentImage, setCurrentImage] = useState(0)
-  const { images, description, price } = product
+  const { images, description, price, id } = product
   const estimateStar = 3.7
   const rating = 2300
   const sold = 7000
   const [quantity, setQuantity] = useState(1)
+  const navigate = useNavigate()
+  const account = useSelector((state) =>
+    selectAccountByEmail(state, localStorage.getItem("email") || "")
+  )
+  const dispatch = useDispatch()
+  console.log(account)
+  function addToCart() {
+    if (!account) {
+      navigate("/signin")
+    }
+    const email = localStorage.getItem("email")
+    dispatch(addToCartAction({ email, id, quantity: quantity }))
+  }
   return (
     <section className="container">
       <div className="container_wrapper-image">
@@ -96,9 +112,9 @@ export default function DetailProduct() {
           </div>
         </div>
         <div className="container_checkout">
-          <button disabled={quantity <= 0} className="cart">
+          <button disabled={quantity <= 0} className="cart" onClick={addToCart}>
             <i
-              className="fa-solid fa-cart-plus"
+              className="fa-solid fa-card-plus"
               style={{ color: "#ee4d2d" }}
             ></i>
             <p>Thêm vào giỏ hàng</p>
