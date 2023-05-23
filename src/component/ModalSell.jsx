@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { deleteProductToCart } from "../features/account/accountSlice"
 
-export default function Modal({ isOpen, setIsOpen, id, email }) {
+export default function ModalSell({ isOpen, setIsOpen, id, email }) {
   useEffect(() => {
     if (isOpen) document.body.style.overflow = "hidden"
     return () => {

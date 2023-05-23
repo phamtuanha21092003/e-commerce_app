@@ -53,7 +53,6 @@ function Main() {
 }
 
 function Products({ products }) {
-  console.log(products)
   return (
     <section className="products" style={{ marginTop: "20px" }}>
       {products.map((product, index) => (

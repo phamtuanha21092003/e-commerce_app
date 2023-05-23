@@ -14,7 +14,7 @@ export function Product({ product }) {
         <span className="discount-percentage">
           {Math.floor(discountPercentage)}
         </span>
-        <span className="title_discount-percentage">Giá</span>
+        <span className="title_discount-percentage">Giảm</span>
       </div>
       <div className="product_wrapper-image">
         <img src={image} alt="" />

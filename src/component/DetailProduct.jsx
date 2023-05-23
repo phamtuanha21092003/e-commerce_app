@@ -31,6 +31,7 @@ export default function DetailProduct() {
     const email = localStorage.getItem("email")
     dispatch(addToCartAction({ email, id, quantity: quantity }))
   }
+  function buyNow() {}
   return (
     <section className="container">
       <div className="container_wrapper-image">
@@ -119,7 +120,11 @@ export default function DetailProduct() {
             ></i>
             <p>Thêm vào giỏ hàng</p>
           </button>
-          <button disabled={quantity <= 0} className="checkout">
+          <button
+            disabled={quantity <= 0}
+            className="checkout"
+            onClick={buyNow}
+          >
             Mua ngay
           </button>
         </div>
