@@ -6,7 +6,7 @@ import DetailProduct, {
   loader as loaderDetailProduct,
 } from "./component/DetailProduct"
 import { MainHomePage } from "./component/ComponentHomePage"
-import { Cart } from "./component/Cart"
+import { Cart, loader as loaderCart } from "./component/Cart"
 
 export const router = createBrowserRouter([
   {
@@ -22,6 +22,10 @@ export const router = createBrowserRouter([
       {
         path: "/cart",
         element: <Cart />,
+        loader: loaderCart,
+      },
+      {
+        path: "/oder",
       },
     ],
   },

@@ -31,7 +31,15 @@ export default function DetailProduct() {
     const email = localStorage.getItem("email")
     dispatch(addToCartAction({ email, id, quantity: quantity }))
   }
-  function buyNow() {}
+  function buyNow() {
+    if (!account) {
+      navigate("/signin")
+    }
+    const email = localStorage.getItem("email")
+    dispatch(addToCartAction({ email, id, quantity: quantity }))
+    localStorage.setItem("buyNow", id)
+    navigate("/cart")
+  }
   return (
     <section className="container">
       <div className="container_wrapper-image">
