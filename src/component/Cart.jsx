@@ -39,7 +39,7 @@ export function Cart() {
                 )
         }, [productToCart?.length])
         const [isOrdering, setIsOrdering] = useState(false)
-        function order(event) {
+        function ordering(event) {
                 if (productCheckout.length === 0) {
                         toast.error("Bạn chưa chọn sản phẩm nào để mua")
                         return
@@ -170,6 +170,8 @@ export function Cart() {
                                 </div>
                                 {isOrdering && (
                                         <Order
+                                                product={productCheckout}
+                                                products={productCheckout}
                                                 totalPrice={totalOrder}
                                                 onClick={() =>
                                                         setIsOrdering(false)
@@ -207,7 +209,7 @@ export function Cart() {
                                         </div>
                                         <div
                                                 className="sell_wrapper"
-                                                onClick={order}
+                                                onClick={ordering}
                                         >
                                                 <div className="sell">
                                                         Mua Hàng

@@ -1,12 +1,17 @@
 import { useState } from "react"
+import { useDispatch } from "react-redux"
+import { deleteProductToCart, order } from "../features/account/accountSlice"
+import { toast } from "react-toastify"
+import { useNavigate } from "react-router-dom"
 
-export default function Order({ totalPrice, ...props }) {
-        const [receiver, setReceiver] = useState(
-                localStorage.getItem("email").split("@")[0]
-        )
+export default function Order({ totalPrice, product: products, ...props }) {
+        const email = localStorage.getItem("email")
+        const [receiver, setReceiver] = useState(email.split("@")[0])
         const [telephonenumber, setTelephonenumber] = useState("")
         const [address, setAddress] = useState("")
         const [isChecked, setIsChecked] = useState(true)
+        const dispatch = useDispatch()
+        const navigate = useNavigate()
 
         function changeReceiver(event) {
                 setReceiver(event.target.value)
@@ -24,6 +29,23 @@ export default function Order({ totalPrice, ...props }) {
                 setIsChecked(event.target.checked)
         }
 
+        function handleOrder() {
+                if (!receiver || !telephonenumber || !address) {
+                        toast.warn("vui lòng nhập đầy đủ thông tin")
+                        return
+                }
+                dispatch(order({ totalPrice, email, products }))
+                products.forEach((product) => {
+                        dispatch(
+                                deleteProductToCart({
+                                        email,
+                                        id: product.id,
+                                })
+                        )
+                })
+                toast.success("thanh toán thành công")
+                navigate("/order/successful")
+        }
         return (
                 <div className="container_order">
                         <label htmlFor="receiver">Tên người nhận</label>
@@ -73,7 +95,9 @@ export default function Order({ totalPrice, ...props }) {
                                 <p className="cancel" {...props}>
                                         Hủy
                                 </p>
-                                <p className="book">Đặt hàng</p>
+                                <p className="book" onClick={handleOrder}>
+                                        Đặt hàng
+                                </p>
                         </div>
                 </div>
         )

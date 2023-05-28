@@ -19,6 +19,7 @@ export default function CartProduct({
         const [image, setImage] = useState("")
         const [description, setDescription] = useState("")
         const [price, setPrice] = useState(0)
+        const [title, setTitle] = useState("")
         const dispatch = useDispatch()
 
         useEffect(() => {
@@ -27,10 +28,12 @@ export default function CartProduct({
                                 images: [img],
                                 description,
                                 price,
+                                title,
                         } = await getDetailProduct(id)
                         setImage(img)
                         setDescription(description)
                         setPrice(price)
+                        setTitle(title)
                 }
                 fetchData()
                 return () => {
@@ -43,7 +46,10 @@ export default function CartProduct({
         useEffect(() => {
                 setProductCheckout((products) => {
                         if (checked) {
-                                return [...products, { id, price, count }]
+                                return [
+                                        ...products,
+                                        { id, price, count, title },
+                                ]
                         }
                         return products.filter((product) => id !== product.id)
                 })
@@ -53,13 +59,13 @@ export default function CartProduct({
                 setProductCheckout((products) => {
                         const updatedProducts = products.map((product) => {
                                 if (product.id === id) {
-                                        return { id, price, count }
+                                        return { id, price, count, title }
                                 }
                                 return product
                         })
                         return updatedProducts
                 })
-        }, [count, setProductCheckout, id, price])
+        }, [count, setProductCheckout, id, price, title])
 
         const [isShowModal, setIsShowModal] = useState(false)
 
