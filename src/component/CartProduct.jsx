@@ -1,4 +1,4 @@
-import axiosInstance from "../axios"
+import client from "../axios"
 import Modal from "./Modal"
 import { useEffect, useState } from "react"
 import {
@@ -138,5 +138,5 @@ export default function CartProduct({
 }
 
 function getDetailProduct(idProduct) {
-        return axiosInstance.get(`products/${idProduct}`)
+        return client.get(`products/${idProduct}`)
 }

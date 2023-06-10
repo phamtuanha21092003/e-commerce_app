@@ -2,6 +2,7 @@ import { useEffect } from "react"
 import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { selectAccountByEmail } from "../features/account/accountSlice"
+import EmptyProduct from "./EmptyProduct"
 
 export function OrderHistory() {
         const email = localStorage.getItem("email")
@@ -15,8 +16,7 @@ export function OrderHistory() {
                 }
         }, [])
         const ordereds = account?.ordered
-        //         console.log(JSON.stringify(ordereds[0].productOrder))
-        return (
+        return ordereds?.length !== 0 ? (
                 <div className="history_container">
                         <p>Lịch sử đặt hàng</p>
                         <div className="table-container">
@@ -98,5 +98,7 @@ export function OrderHistory() {
                                 </table>
                         </div>
                 </div>
+        ) : (
+                <EmptyProduct content={"Bạn chưa mua hàng lần nào"} />
         )
 }

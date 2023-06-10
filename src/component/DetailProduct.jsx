@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useLoaderData, useNavigate } from "react-router-dom"
 import FsLightbox from "fslightbox-react"
-import axiosInstance from "../axios"
+import client from "../axios"
 import { Rating } from "@mui/material"
 import StarIcon from "@mui/icons-material/Star"
 import StarBorderIcon from "@mui/icons-material/StarBorder"
@@ -197,7 +197,7 @@ export default function DetailProduct() {
 
 async function loader({ params }) {
         const { idProduct } = params
-        const product = await axiosInstance.get(`products/${idProduct}`)
+        const product = await client.get(`products/${idProduct}`)
         const { title, price, description, discountPercentage, id, images } =
                 product
         return { title, price, description, discountPercentage, id, images }

@@ -1,11 +1,11 @@
 import { useSelector } from "react-redux"
 import { selectAccountByEmail } from "../features/account/accountSlice"
 import { useEffect, useState } from "react"
-import { NavLink, useLoaderData, useNavigate } from "react-router-dom"
+import { useLoaderData, useNavigate } from "react-router-dom"
 import CartProduct from "./CartProduct"
-import cartEmpty from "../assets/image/cart_empty.png"
 import Order from "./Order"
 import { toast } from "react-toastify"
+import EmptyProduct from "./EmptyProduct"
 
 export function Cart() {
         const email = localStorage.getItem("email") || ""
@@ -69,18 +69,7 @@ export function Cart() {
         }
 
         return productToCart?.length === 0 ? (
-                <div className="cart_container_empty">
-                        <div className="content">
-                                <div
-                                        className="image"
-                                        style={{
-                                                backgroundImage: `url("${cartEmpty}")`,
-                                        }}
-                                ></div>
-                                <div>Giỏ hàng của bạn còn trống</div>
-                                <NavLink to="/">Mua ngay</NavLink>
-                        </div>
-                </div>
+                <EmptyProduct content={"Giỏ hàng của bạn còn trống"} />
         ) : (
                 <div className="cart_container" id="cart_modal">
                         {!isOrdering && (
