@@ -10,61 +10,81 @@ import new2 from "../assets/image/slide_show/new2.jfif"
 import SlideShow from "./Slidehow"
 import { Product } from "./Product"
 import client from "../axios"
+import { useSelector } from "react-redux"
+import { selectCategory } from "../features/category/categorySlice"
+import { useEffect } from "react"
 
 const slides = [
-        { image: slide1 },
-        { image: slide2 },
-        { image: slide3 },
-        { image: slide4 },
-        { image: slide5 },
+      { image: slide1 },
+      { image: slide2 },
+      { image: slide3 },
+      { image: slide4 },
+      { image: slide5 },
 ]
 
 function Main() {
-        const [products, setProducts] = useState([])
-        const { status, fetchStatus } = useQuery({
-                queryKey: ["key"],
-                queryFn: () =>
-                        client.get("/products").then((response) => response),
-                onSuccess: ({ products: listProduct }) => {
-                        setProducts(listProduct)
-                },
-                onError: (error) => {
-                        console.log("error ", error)
-                },
-        })
-        if (fetchStatus === "paused") return <h1>disconnect network</h1>
-        if (status === "loading") return <h1>loading</h1>
-        return (
-                <main className="main">
-                        <div className="container">
-                                <SlideShow slides={slides} />
-                                <div className="slideshow_right-wrapper">
-                                        <div className="slideshow_right-banner">
-                                                <img src={new1} alt="" />
-                                        </div>
-                                        <div className="slideshow_right-banner">
-                                                <img src={new2} alt="" />
-                                        </div>
-                                </div>
+      const [products, setProducts] = useState([])
+      const [productsRender, setProductsRender] = useState([])
+      const category = useSelector(selectCategory)
+
+      const { status, fetchStatus } = useQuery({
+            queryKey: ["key"],
+            queryFn: () => client.get("/products").then((response) => response),
+            onSuccess: ({ products: listProduct }) => {
+                  console.log(listProduct)
+                  setProducts(listProduct)
+                  setProductsRender(listProduct)
+            },
+            onError: (error) => {
+                  console.log("error ", error)
+            },
+      })
+
+      useEffect(() => {
+            if (category) {
+                  setProductsRender(
+                        products.filter(
+                              (product) => product.category === category
+                        )
+                  )
+                  return () => setProductsRender(products)
+            }
+      }, [products, category])
+
+      if (fetchStatus === "paused")
+            return <h1 style={{ marginTop: "200px" }}>disconnect network</h1>
+
+      if (status === "loading")
+            return <h1 style={{ marginTop: "200px" }}>loading</h1>
+
+      return (
+            <main className="main">
+                  <div className="container">
+                        <SlideShow slides={slides} />
+                        <div className="slideshow_right-wrapper">
+                              <div className="slideshow_right-banner">
+                                    <img src={new1} alt="" />
+                              </div>
+                              <div className="slideshow_right-banner">
+                                    <img src={new2} alt="" />
+                              </div>
                         </div>
-                        <Products products={products} />
-                </main>
-        )
+                  </div>
+                  <Products products={productsRender} />
+            </main>
+      )
 }
 
 function Products({ products }) {
-        return (
-                <section className="products" style={{ marginTop: "20px" }}>
-                        {products.map((product, index) => (
-                                <div
-                                        className="product"
-                                        key={`product_${index}`}
-                                >
-                                        <Product product={product} />
-                                </div>
-                        ))}
-                </section>
-        )
+      return (
+            <section className="products" style={{ marginTop: "20px" }}>
+                  {products.map((product, index) => (
+                        <div className="product" key={`product_${index}`}>
+                              <Product product={product} />
+                        </div>
+                  ))}
+            </section>
+      )
 }
 
 export { Main as MainHomePage }
