@@ -150,7 +150,7 @@ export default function SignIn() {
                                 </Grid>
                                 <Grid item>
                                     <Link
-                                        to="/signup"
+                                        to="/e-commerce_app/signup"
                                         component={RouterLink}
                                         variant="body2"
                                     >
